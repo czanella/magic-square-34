@@ -1,0 +1,9 @@
+@font-face {
+    font-family: 'RusticanaRomanRoman';
+    src: url('rusticana-roman.eot');
+    src: url('rusticana-roman.eot') format('embedded-opentype'),
+         url('rusticana-roman.woff2') format('woff2'),
+         url('rusticana-roman.woff') format('woff'),
+         url('rusticana-roman.ttf') format('truetype'),
+         url('rusticana-roman.svg#RusticanaRomanRoman') format('svg');
+}

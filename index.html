@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Albrecht Dürer's Magic Square</title>
+    <link rel="stylesheet" type="text/css" href="fonts/rusticana-roman.css" />
+    <link rel="stylesheet" type="text/css" href="css/main.css" />
+    <script type="text/javascript" src="js/CombinationIterator.js"></script>
+    <script type="text/javascript" src="js/angular.min.js"></script>
+    <script type="text/javascript" src="js/square34.js"></script>
+</head>
+<body ng-app="square34.app" ng-controller="Square34Controller">
+    <div class="title">Albrecht Dürer's Magic Square</div>
+    <div class="container">
+        <div class="arrow-left" ng-click="selectPreviousCombination()"></div>
+        <div class="square">
+            <div class="square-position"
+                 ng-repeat="number in square"
+                 ng-class="{'selected': currentCombination.indexOf($index)>=0}">{{number}}</div>
+        </div>
+        <div class="arrow-right" ng-click="selectNextCombination()"></div>
+        <div class="combination-display">
+            {{square[currentCombination[0]]}} +
+            {{square[currentCombination[1]]}} +
+            {{square[currentCombination[2]]}} +
+            {{square[currentCombination[3]]}}
+            = 34
+        </div>
+    </div>
+    <div class="about-button" ng-click="modalVisible = true"></div>
+    <a class="github-button" href="https://github.com/czanella/magic-square-34" target="_blank"></a>
+
+    <div class="modal" ng-class="{'visible': modalVisible}">
+        <div class="modal-content">
+            <p>
+                A magic square is a table of numbers where the numbers in each row, column and diagonal always add up to the same result. This site is a homage to a one-of-a-kind magic square.
+            </p>
+
+            <p>
+                German artist Albrecht Dürer's engraving <a target="_blank" href="https://www.google.com/search?q=melencolia+I+albrecht+dürer">Melencolia I</a> contains a 4x4 magic square where not only the rows, columns and diagonals add up to 34 but also several other interesting patterns in it also add up to 34 - such as the numbers in the four corners and the numbers in the central square. This site explores all such patterns in Dürer's square.
+            </p>
+
+            <p>
+                Created by Carlos Zanella - <a target="_blank" href="http://zanel.la">http://zanel.la</a>
+            </p>
+        </div>
+        <div class="modal-close-button" ng-click="modalVisible = false">Close</div>
+    </div>
+    
+</body>
+</html>
