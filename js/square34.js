@@ -7,10 +7,18 @@ angular.module("square34.app", [])
     }
 ])
 
+.factory("ga", [
+    "$window",
+    function($window) {
+        return $window.ga;
+    }
+])
+
 .controller("Square34Controller", [
     "$scope",
     "CombinationIterator",
-    function($scope, CombinationIterator) {
+    "ga",
+    function($scope, CombinationIterator, ga) {
         function compareNumbers(a, b) {
             return a - b;
         }
@@ -41,25 +49,24 @@ angular.module("square34.app", [])
             pattern.sort(compareNumbers);
         }
 
+        function buildDistanceArray(pattern) {
+            return [
+                pattern[1] - pattern[0],
+                pattern[2] - pattern[1],
+                pattern[3] - pattern[2],
+                pattern[0]
+            ];
+        }
+
         function buildStructure(pattern) {
-            var structures = [], patternAnchor = pattern[0];
+            var structures = [];
 
             for (var i=0; i<4; i++) {
                 transposePattern(pattern);
-                structures.push([
-                    pattern[1] - pattern[0],
-                    pattern[2] - pattern[1],
-                    pattern[3] - pattern[2],
-                    patternAnchor
-                ]);
+                structures.push(buildDistanceArray(pattern));
 
                 mirrorPattern(pattern);
-                structures.push([
-                    pattern[1] - pattern[0],
-                    pattern[2] - pattern[1],
-                    pattern[3] - pattern[2],
-                    patternAnchor
-                ]);
+                structures.push(buildDistanceArray(pattern));
             }
 
             structures.sort(compareArrays);
@@ -100,23 +107,51 @@ angular.module("square34.app", [])
             $scope.combinations[index] = value.pattern;
         });
 
+        var visited = [], visitCount = 0;
+        $scope.combinations.forEach(function() {
+            visited.push(false);
+        });
+
         $scope.selectCombination = function(combinationId) {
             $scope.currentCombination = $scope.combinations[$scope.currentCombinationId = combinationId];
+            if (!visited[combinationId]) {
+                visited[combinationId] = true;
+                visitCount++;
+                if (visitCount >= $scope.combinations.length) {
+                    ga("send", "event", "visited-all");
+                }
+            }
         }
 
         $scope.selectNextCombination = function() {
             $scope.selectCombination(
                 ($scope.currentCombinationId + 1) % $scope.combinations.length
             );
+            ga("send", "event", "select-next", $scope.currentCombinationId);
         }
 
         $scope.selectPreviousCombination = function() {
             $scope.selectCombination(
                 ($scope.currentCombinationId - 1 + $scope.combinations.length) % $scope.combinations.length
             );
+            ga("send", "event", "select-previous", $scope.currentCombinationId);
+        }
+
+        $scope.openModal = function() {
+            ga("send", "event", "modal");
+            $scope.modalVisible = true;
+        }
+
+        $scope.closeModal = function() {
+            $scope.modalVisible = false;
+        }
+
+        $scope.githubClicked = function() {
+            ga("send", "event", "github");
         }
 
         $scope.selectCombination(0);
         $scope.modalVisible = false;
+
     }
 ]);

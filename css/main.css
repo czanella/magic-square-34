@@ -143,13 +143,21 @@ a:hover {
     content: "?";
 }
 
+.social {
+    position: absolute;
+    left: 30px;
+    bottom: 30px;
+}
+
+.social > * {
+    float: left;
+    margin-right: 20px;
+}
+
 .github-button {
     background-image: url(../img/github.png);
     width: 60px;
     height: 60px;
-    position: absolute;
-    left: 30px;
-    bottom: 30px;
     display: block;
 }
 
@@ -204,4 +212,8 @@ a:hover {
     -webkit-transform: translate(-50%, 0);
     -ms-transform: translate(-50%, 0);
     transform: translate(-50%, 0);
+}
+
+.fb_iframe_widget {
+    margin-top: 16px;
 }

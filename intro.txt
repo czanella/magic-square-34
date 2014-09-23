@@ -1,5 +1,0 @@
-A magic square is a table of numbers where the numbers in each row, column and diagonal always add up to the same result. This site is a homage to a one-of-a-kind magic square.
-
-German artist Albrecht Dürer's engraving <a href="https://www.google.com/search?q=melencolia+I+albrecht+dürer">Melencolia I</a> contains a 4x4 magic square where not only the rows, columns and diagonals add up to 34 but also several other interesting patterns in it also add up to 34 - such as the numbers in the four corners and the numbers in the central square. This site explores all such patterns in Dürer's square.
-
-Created by Carlos Zanella - <a href="http://zanel.la">http://zanel.la</a>
